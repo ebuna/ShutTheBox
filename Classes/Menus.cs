@@ -57,7 +57,8 @@ namespace ShutTheBox.Classes
                     }
 
                     // TODO: Implement game logic
-                    Console.WriteLine("New game starting.");
+                    Console.WriteLine("Starting new game!");
+                    Game.New(players);
                 }
             }
         }
