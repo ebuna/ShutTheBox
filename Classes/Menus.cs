@@ -46,11 +46,33 @@ namespace ShutTheBox.Classes
                 // Check if input is numeric
                 if (int.TryParse(input, out optionSelected) && optionSelected == 1)
                 {
-                    // Start a new game
+                    // Display the PlayerMenu
+                    PlayerMenu();
+
                     // TODO: Implement game logic
                     Console.WriteLine("New game starting.");
                 }
-                else if (optionSelected != 2)
+            }
+        }
+
+        public static void PlayerMenu()
+        {
+            // Initialize class variables
+            optionSelected = 0;
+            input = string.Empty;
+
+            while (optionSelected < 1 || optionSelected > 4)
+            {
+                // Prompt user for number of players
+                Console.Write("Enter the number of players (1-4): ");
+                input = Console.ReadLine();
+
+                // Check if input is numeric
+                if (int.TryParse(input, out optionSelected) && optionSelected >= 1 && optionSelected <= 4)
+                {
+                    // TODO: Implement Player class
+                }
+                else
                 {
                     Console.WriteLine("Please enter a valid option.");
                 }
