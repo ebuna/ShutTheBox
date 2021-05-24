@@ -29,15 +29,17 @@ namespace ShutTheBox.Classes
                     // Indicate whose turn it is
                     Console.WriteLine($"It is currently {player.Name}'s turn.\n\n");
                     
-                    // Ask how many dice the player wants to roll
-                    Console.Write("How many dice do you want to roll: ");
-                    input = Console.ReadLine();
-
-                    // Check if input is numeric
-                    // TODO: Run check until valid input is given
-                    if (int.TryParse(input, out optionSelected))
+                    // Roll dice
+                    while (!int.TryParse(input, out optionSelected) || optionSelected < 1 || optionSelected > 2)
                     {
-                        sumOfRolls = Dice.Roll(optionSelected);
+                        // Ask how many dice the player wants to roll
+                        Console.Write("How many dice do you want to roll: ");
+                        input = Console.ReadLine();
+
+                        if (int.TryParse(input, out optionSelected) && optionSelected >= 1 && optionSelected <= 2)
+                        {
+                            sumOfRolls = Dice.Roll(optionSelected);
+                        }
                     }
                 }
             }
