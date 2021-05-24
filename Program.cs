@@ -1,4 +1,5 @@
 ﻿using System;
+using ShutTheBox.Classes;
 
 namespace ShutTheBox
 {
@@ -6,7 +7,7 @@ namespace ShutTheBox
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Menus.MainMenu();
         }
     }
 }
