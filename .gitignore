@@ -52,5 +52,5 @@ Mkfile.old
 dkms.conf
 
 # obj and bin folders
-obj/
+obj/*
 bin/
