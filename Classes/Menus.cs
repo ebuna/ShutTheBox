@@ -1,11 +1,12 @@
 using System;
+using System.Collections.Generic;
 
 namespace ShutTheBox.Classes
 {
     public class Menus
     {
+        private static List<Player> players;
         private static int optionSelected;
-        private static int numberOfPlayers;
         private static string input;
         private const string MENULOGO = @"
               _______.
@@ -22,7 +23,6 @@ namespace ShutTheBox.Classes
         {
             // Initialize class variables
             optionSelected = 0;
-            numberOfPlayers = 0;
             input = string.Empty;
             
 
@@ -49,6 +49,13 @@ namespace ShutTheBox.Classes
                     // Display the PlayerMenu
                     PlayerMenu();
 
+                    // List the players
+                    Console.WriteLine("Players:");
+                    foreach (Player player in players)
+                    {
+                        Console.WriteLine("  - " + player.Name);
+                    }
+
                     // TODO: Implement game logic
                     Console.WriteLine("New game starting.");
                 }
@@ -58,6 +65,7 @@ namespace ShutTheBox.Classes
         public static void PlayerMenu()
         {
             // Initialize class variables
+            players = new List<Player>();
             optionSelected = 0;
             input = string.Empty;
 
@@ -70,7 +78,11 @@ namespace ShutTheBox.Classes
                 // Check if input is numeric
                 if (int.TryParse(input, out optionSelected) && optionSelected >= 1 && optionSelected <= 4)
                 {
-                    // TODO: Implement Player class
+                    for (int i = 1; i <= optionSelected; i++)
+                    {
+                        Console.Write($"Enter the name of Player {i}: ");
+                        players.Add(new Player(Console.ReadLine().Trim()));
+                    }
                 }
                 else
                 {
