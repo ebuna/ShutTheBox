@@ -9,7 +9,7 @@ namespace ShutTheBox.Classes
         private static int optionSelected;
         private static string input;
         private const string MENULOGO = @"
-              _______.
+              _______
    ______    | .   . |\
   /     /\   |   .   |.\
  /  '  /  \  | .   . |.'|
