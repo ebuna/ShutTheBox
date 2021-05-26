@@ -11,7 +11,7 @@ jobs:
         creds: ${{ secrets.ACR_CREDENTIALS }}
     - uses: Azure/get-keyvault-secrets@v1
       with:
-        keyvault: "kv-ebuna-acr-secret"
+        keyvault: "kv-ebuna-acr-secrets"
         secrets: 'acrUsername, acrPassword'
       id: myGetSecretAction
     - uses: Azure/docker-login@v1
