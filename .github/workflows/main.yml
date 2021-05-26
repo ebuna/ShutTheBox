@@ -1,0 +1,27 @@
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # checkout the repo
+    - uses: actions/checkout@master
+    - uses: Azure/login@v1
+      with:
+        creds: ${{ secrets.ACR_CREDENTIALS }}
+    - uses: Azure/get-keyvault-secrets@v1
+      with:
+        keyvault: "kv-ebuna-acr-secret"
+        secrets: 'acr-username, acr-password'
+      id: myGetSecretAction
+    - uses: Azure/docker-login@v1
+      with:
+        registry: ebuna.azurecr.io
+        login-server: ebuna.azurecr.io
+        username: ${{ steps.myGetSecretAction.outputs.acr-username }}
+        password: ${{ steps.myGetSecretAction.outputs.acr-password }}
+    - run: |
+        trimmedSha=$(echo ${{ github.sha }} | cut -c1-7)
+        branchName=$(echo ${GITHUB_REF#refs/heads/})
+        docker build . -t ebuna.azurecr.io/shutthedoor:$branchName-$trimmedSha
+        docker push ebuna.azurecr.io/shutthedoor:$branchName-$trimmedSha
