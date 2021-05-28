@@ -16,8 +16,8 @@ jobs:
       id: myGetSecretAction
     - uses: Azure/docker-login@v1
       with:
-        registry: ebuna.azurecr.io
-        login-server: ebuna.azurecr.io
+        registry: ${{ steps.myGetSecretAction.outputs.acrHost }}
+        login-server: ${{ steps.myGetSecretAction.outputs.acrHost }}
         username: ${{ steps.myGetSecretAction.outputs.acrUsername }}
         password: ${{ steps.myGetSecretAction.outputs.acrPassword }}
     - run: |
