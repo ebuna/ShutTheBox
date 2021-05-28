@@ -10,6 +10,8 @@ namespace ShutTheBox.Classes
         private static int optionSelected;
         private static int sumOfRolls;
         private static int[] validInputs;
+        private static bool isTurnOver;
+        private static List<int> levers;
         
         public static void New(List<Player> players)
         {
@@ -21,10 +23,11 @@ namespace ShutTheBox.Classes
             {
                 foreach (var player in players)
                 {
-                    Console.WriteLine("starting a new turn\n");
                     // Reset each turn
                     optionSelected = 0;
                     sumOfRolls = 0;
+                    isTurnOver = false;
+                    levers = player.GetAvailableLevers();
 
                     // Indicate whose turn it is
                     Console.WriteLine($"\nIt is currently {player.Name}'s turn.\n\n");
@@ -40,28 +43,18 @@ namespace ShutTheBox.Classes
                     sumOfRolls = Dice.Roll(optionSelected);
 
                     // Prompt for lever to remove
-                    while (sumOfRolls > 0)
+                    while (sumOfRolls > 0 && !isTurnOver)
                     {
-                        optionSelected = Utils.GetValidInput("Which lever do you want to remove?", player.GetAvailableLevers());
+                        optionSelected = Utils.GetValidInput("\nWhich lever do you want to remove?", player.GetAvailableLevers());
                         sumOfRolls = player.RemoveLever(optionSelected, sumOfRolls);
-                        Console.WriteLine($"\nYou have {sumOfRolls} remaining.\n");
+                        Console.WriteLine($"\nYou have {sumOfRolls} remaining.\n\n");
                         player.DisplayAvailableLevers();
+
+                        if (sumOfRolls <= 0 || sumOfRolls < player.GetAvailableLevers()[0])
+                        {
+                            isTurnOver = true;
+                        }
                     }
-                    
-
-                    // while (!int.TryParse(input, out optionSelected) || optionSelected < 1 || optionSelected > 2)
-                    // {
-                    //     // Ask how many dice the player wants to roll
-                    //     Console.Write("\nHow many dice do you want to roll (1-2): ");
-                    //     input = Console.ReadLine();
-
-                    //     if (int.TryParse(input, out optionSelected) && optionSelected >= 1 && optionSelected <= 2)
-                    //     {
-                    //         // Get and display rolls and sumOfRolls
-                    //         sumOfRolls = Dice.Roll(optionSelected);
-                    //         Utils.GetValidInput("Which lever do you want to remove?", 1, 9);
-                    //     }
-                    // }
                 }
             }
         }

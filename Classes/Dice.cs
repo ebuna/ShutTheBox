@@ -39,13 +39,11 @@ namespace ShutTheBox.Classes
         #endregion
 
         private static List<int> rollOutcomes;
-        private static int sumOfRolls;
         private static Random roll;
 
         public static int Roll (int numberOfDice)
         {
             rollOutcomes = new List<int>();
-            sumOfRolls = 0;
             roll = new Random();
 
             // Roll n dice, where n = numberOfDice
