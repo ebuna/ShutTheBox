@@ -6,12 +6,14 @@ namespace ShutTheBox.Classes
     public class Player
     {
         public string Name { get; }
+        public int Score { get; set; }
         private List<int> availableLevers;
 
 
         public Player(string name)
         {
             Name = name;
+            Score = 0;
             availableLevers = new List<int>();
             for (int i = 1; i < 10; i++)
             {
