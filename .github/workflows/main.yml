@@ -12,7 +12,7 @@ jobs:
     - uses: Azure/get-keyvault-secrets@v1
       with:
         keyvault: "kv-ebuna-acr-secrets"
-        secrets: 'acrUsername, acrPassword'
+        secrets: 'acrUsername, acrPassword, acrHost'
       id: myGetSecretAction
     - uses: Azure/docker-login@v1
       with:
@@ -21,8 +21,7 @@ jobs:
         username: ${{ steps.myGetSecretAction.outputs.acrUsername }}
         password: ${{ steps.myGetSecretAction.outputs.acrPassword }}
     - run: |
-        export DOCKER_CLI_EXPERIMENTAL=enabled
         trimmedSha=$(echo ${{ github.sha }} | cut -c1-7)
         branchName=$(echo ${GITHUB_REF#refs/heads/})
-        docker buildx build --platform linux/arm64 . -t ebuna.azurecr.io/shutthedoor:$branchName-$trimmedSha
-        docker push ebuna.azurecr.io/shutthedoor:$branchName-$trimmedSha
+        docker build . -t ${{ steps.myGetSecretAction.outputs.acrHost }}/shutthedoor:$branchName-$trimmedSha
+        docker push ${{ steps.myGetSecretAction.outputs.acrHost }}/shutthedoor:$branchName-$trimmedSha
