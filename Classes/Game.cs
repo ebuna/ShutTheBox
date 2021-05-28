@@ -12,11 +12,13 @@ namespace ShutTheBox.Classes
         private static int[] validInputs;
         private static bool isTurnOver;
         private static List<int> levers;
+        private static string winner;
         
-        public static void New(List<Player> players)
+        public static string New(List<Player> players)
         {
             // Reset each game
             isGameOver = false;
+            winner = string.Empty;
 
             // Take turns until a player wins
             while (!isGameOver)
@@ -45,18 +47,32 @@ namespace ShutTheBox.Classes
                     // Prompt for lever to remove
                     while (sumOfRolls > 0 && !isTurnOver)
                     {
-                        optionSelected = Utils.GetValidInput("\nWhich lever do you want to remove?", player.GetAvailableLevers());
-                        sumOfRolls = player.RemoveLever(optionSelected, sumOfRolls);
-                        Console.WriteLine($"\nYou have {sumOfRolls} remaining.\n\n");
-                        player.DisplayAvailableLevers();
-
+                        //  Check if rolls are exhausted to end turn
                         if (sumOfRolls <= 0 || sumOfRolls < player.GetAvailableLevers()[0])
                         {
                             isTurnOver = true;
                         }
+                        else
+                        {
+                            optionSelected = Utils.GetValidInput("\nWhich lever do you want to remove?", player.GetAvailableLevers());
+                            sumOfRolls = player.RemoveLever(optionSelected, sumOfRolls);
+
+                            // Check if the player has won the game
+                            if (player.SumOfRemainingLevers() == 0)
+                            {
+                                isGameOver = true;
+                                winner = player.Name;
+                                return winner;
+                            }
+
+                            Console.WriteLine($"\nYou have {sumOfRolls} remaining.\n\n");
+                            player.DisplayAvailableLevers();
+                        }
                     }
                 }
             }
+
+            return winner;
         }
     }
 }

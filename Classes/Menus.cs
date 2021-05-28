@@ -5,6 +5,7 @@ namespace ShutTheBox.Classes
 {
     public class Menus
     {
+        private static string winner;
         private static List<Player> players;
         private static int optionSelected;
         private static string input;
@@ -23,7 +24,9 @@ namespace ShutTheBox.Classes
         {
             // Initialize class variables
             optionSelected = 0;
+
             input = string.Empty;
+            winner = string.Empty;
             
 
             while (input != "2")
@@ -56,9 +59,17 @@ namespace ShutTheBox.Classes
                         Console.WriteLine("  - " + player.Name);
                     }
 
-                    // TODO: Implement game logic
+                    // TODO: Fix game logic to use the rules: https://en.wikipedia.org/wiki/Shut_the_box
+                    // Start a new game
                     Console.WriteLine("Starting new game!");
-                    Game.New(players);
+                    winner = Game.New(players);
+                    Console.WriteLine($"Congratulations {winner}, you won!\n\n");
+                    Console.Write("Press any key to continue...");
+                    Console.ReadKey();
+                    while(Console.KeyAvailable) 
+                        Console.ReadKey(false);
+
+                    input = "0";
                 }
             }
         }

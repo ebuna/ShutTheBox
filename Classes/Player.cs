@@ -6,14 +6,12 @@ namespace ShutTheBox.Classes
     public class Player
     {
         public string Name { get; }
-        public bool isWinner { get; set; }
         private List<int> availableLevers;
 
 
         public Player(string name)
         {
             Name = name;
-            isWinner = false;
             availableLevers = new List<int>();
             for (int i = 1; i < 10; i++)
             {
@@ -28,6 +26,7 @@ namespace ShutTheBox.Classes
 
         public void DisplayAvailableLevers()
         {
+            Console.WriteLine($"{Name}'s current levers:");
             foreach (var lever in availableLevers)
             {
                 Console.Write($"   {lever}");
