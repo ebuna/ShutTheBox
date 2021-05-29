@@ -57,15 +57,7 @@ namespace ShutTheBox.Classes
                             optionSelected = Utils.GetValidInput("\nWhich lever do you want to remove?", player.GetAvailableLevers());
                             sumOfRolls = player.RemoveLever(optionSelected, sumOfRolls);
 
-                            // Check if the player has won the game
-                            // if (player.SumOfRemainingLevers() == 0)
-                            // {
-                            //     isGameOver = true;
-                            //     winner = player.Name;
-                            //     return winner;
-                            // }
-
-                            Console.WriteLine($"\nYou have {sumOfRolls} remaining.\n\n");
+                            Console.WriteLine($"\nYou have {sumOfRolls} remaining.\n");
                             player.DisplayAvailableLevers();
                         }
                     }
