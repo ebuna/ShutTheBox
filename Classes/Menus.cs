@@ -81,14 +81,14 @@ namespace ShutTheBox.Classes
             optionSelected = 0;
             input = string.Empty;
 
-            while (optionSelected < 1 || optionSelected > 4)
+            while (optionSelected < 2 || optionSelected > 4)
             {
                 // Prompt user for number of players
-                Console.Write("Enter the number of players (1-4): ");
+                Console.Write("Enter the number of players (2-4): ");
                 input = Console.ReadLine();
 
                 // Check if input is numeric
-                if (int.TryParse(input, out optionSelected) && optionSelected >= 1 && optionSelected <= 4)
+                if (int.TryParse(input, out optionSelected) && optionSelected >= 2 && optionSelected <= 4)
                 {
                     for (int i = 1; i <= optionSelected; i++)
                     {

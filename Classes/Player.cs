@@ -67,5 +67,18 @@ namespace ShutTheBox.Classes
 
             return sumOfRolls;
         }
+
+        public bool HasLeversOverSix()
+        {
+            foreach (var lever in availableLevers)
+            {
+                if (lever > 6)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
     }
 }

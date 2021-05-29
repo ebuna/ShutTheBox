@@ -37,9 +37,19 @@ namespace ShutTheBox.Classes
                 // Prompt for lever to remove
                 while ((sumOfRolls >= player.GetAvailableLevers()[0] || sumOfRolls == 0) && !isTurnOver)
                 {
-                    // Ask how many dice to roll
-                    validInputs = new int[2] {1, 2};
-                    optionSelected = Utils.GetValidInput("\nHow many dice do you want to roll (1-2):", validInputs);
+                    // Determine how many dice to roll
+                    if (player.HasLeversOverSix())
+                    {
+                        Console.WriteLine("\nYou can only roll 2 dice while there are levers over 6 remaining, rolling 2 dice...");
+                        optionSelected = 2;
+                    }
+                    else
+                    {
+                        validInputs = new int[2] {1, 2};
+                        optionSelected = Utils.GetValidInput("\nHow many dice do you want to roll (1-2):", validInputs);
+                    }
+                    
+                    
                     
                     // Get and display rolls and sumOfRolls
                     sumOfRolls = Dice.Roll(optionSelected);
