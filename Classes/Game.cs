@@ -67,9 +67,23 @@ namespace ShutTheBox.Classes
                             optionSelected = Utils.GetValidInput("\nWhich lever do you want to remove?", player.GetAvailableLevers());
                             sumOfRolls = player.RemoveLever(optionSelected, sumOfRolls);
 
-                            Console.WriteLine($"\nYou have {sumOfRolls} remaining.\n");
-                            player.DisplayAvailableLevers();
+                            if (player.SumOfRemainingLevers() == 0)
+                            {
+                                isTurnOver = true;
+                            }
+                            else
+                            {
+                                Console.WriteLine($"\nYou have {sumOfRolls} remaining.\n");
+                                player.DisplayAvailableLevers();
+                            }
                         }
+                    }
+
+                    // Check if player won
+                    if (player.SumOfRemainingLevers() == 0)
+                    {
+                        Console.WriteLine($"{player.Name} has shut the box!\n");
+                        return player.Name;
                     }
                 }
 
